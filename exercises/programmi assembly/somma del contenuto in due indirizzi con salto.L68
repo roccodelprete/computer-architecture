@@ -1,0 +1,44 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 02/12/2021 10:15:18
+
+00000000                             1  *-------------------------------------------------------------------------------------------------------------------
+00000000                             2  * Title      : Somma del contenuto in due indirizzi con salto
+00000000                             3  * Written by :
+00000000                             4  * Date       : 02/12/2021
+00000000                             5  * Description: Sommare il contenuto di due indirizzi e successivamente saltare in una nuova locazione
+00000000                             6  *-------------------------------------------------------------------------------------------------------------------
+00001000                             7          org     $1000
+00001000  207C 0000810A              8  start   move.l  #$810A,A0
+00001006  227C 0000810B              9          move.l  #$810B,A1
+0000100C  1210                      10          move.b  (A0),D1
+0000100E  1411                      11          move.b  (A1),D2
+00001010  123C 000F                 12          move.b  #$0F,D1
+00001014  143C 0005                 13          move.b  #$05,D2
+00001018  D401                      14          add.b   D1,D2
+0000101A                            15          
+0000101A  0802 0000                 16          btst    #0,D2
+0000101E  6600 0018                 17          bne     fine
+00001022                            18          
+00001022  0C42 000F                 19          cmpi    #15,D2
+00001026  6D00 0010                 20          blt     fine
+0000102A                            21          
+0000102A  0C42 0019                 22          cmpi    #25,D2
+0000102E  6E00 0008                 23          bgt     fine
+00001032                            24  
+00001032  4EF9 00008600             25  salto   jmp     $8600 
+00001038                            26  
+00001038  FFFF FFFF                 27  fine    simhalt
+0000103C                            28  
+0000103C                            29          end     start
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+FINE                1038
+SALTO               1032
+START               1000

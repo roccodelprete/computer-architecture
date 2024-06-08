@@ -1,0 +1,37 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/11/2021 09:26:50
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Indirizzamento indiretto con spiazzamento
+00000000                             3  * Written by :
+00000000                             4  * Date       : 25/11/2021
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG    $1000
+00001000  207C 00008806              8  START:  movea.l #A,A0
+00001006  3028 0002                  9          move    2(A0),D0
+0000100A  D068 0004                 10          add     4(A0),D0
+0000100E  D068 0006                 11          add     6(A0),D0
+00001012  3080                      12          move    D0,(A0)    
+00001014  FFFF FFFF                 13          simhalt
+00001018                            14          
+00008800                            15          org $8800
+00008800= 0004                      16  B       dc  4
+00008802= 0003                      17  C       dc  3
+00008804= 0009                      18  D       dc  9
+00008806                            19  A       ds  1
+00008808                            20          END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+A                   8806
+B                   8800
+C                   8802
+D                   8804
+START               1000

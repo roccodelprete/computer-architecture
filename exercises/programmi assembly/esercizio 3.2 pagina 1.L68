@@ -1,0 +1,48 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 27/01/2022 10:57:16
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : esercizio 3.2 pagina 1
+00000000                             3  * Written by : Rocco
+00000000                             4  * Date       : 27/01/2022
+00000000                             5  * Description: FOR i=1 to contenuto della memoria $8600 then D0=D0+contenuto memoria $8500
+00000000                             6  *-----------------------------------------------------------
+00008800                             7      ORG    $8800
+00008800= 0001                       8  i   DC     1    
+00008802                             9      
+00001000                            10      ORG    $1000
+00001000  48E7 C0C0                 11  START:  movem.l A0/A1/D0/D1,-(SP)
+00001004  41F9 00008600             12          lea     $8600,A0
+0000100A  43F9 00008500             13          lea     $8500,A1
+00001010  32BC 0005                 14          move    #5,(A1)
+00001014  30BC 0004                 15          move    #4,(A0)
+00001018  303C 0007                 16          move    #7,D0
+0000101C  3239 00008800             17          move    I,D1
+00001022  4EB9 00001030             18          jsr     subr
+00001028  4CDF 0303                 19          movem.l (SP)+,A0/A1/D0/D1
+0000102C                            20  
+0000102C  FFFF FFFF                 21      SIMHALT
+00001030                            22      
+00001030  B250                      23  subr    cmp     (A0),D1
+00001032  6E00 000A                 24          bgt     fine
+00001036                            25          
+00001036  D051                      26          add     (A1),D0
+00001038  5241                      27          add     #1,D1
+0000103A  4EF8 1030                 28          jmp     subr
+0000103E                            29          
+0000103E  4E75                      30  fine    rts
+00001040                            31      
+00001040                            32      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+FINE                103E
+I                   8800
+START               1000
+SUBR                1030

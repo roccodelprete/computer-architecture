@@ -1,0 +1,64 @@
+00008000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 01/12/2021 15:12:06
+
+00000000                             1  *------------------------------------------------------------------------------------------------
+00000000                             2  * Title      :  Minimo tra dispari di un array
+00000000                             3  * Written by :
+00000000                             4  * Date       :  01/12/2021
+00000000                             5  * Description:  Calcolo degli elementi dispari di un array e successivamente del minimo tra loro
+00000000                             6  *------------------------------------------------------------------------------------------------
+00008000                             7          ORG     $8000
+00008000  41F9 00008800              8  START:  lea     array,A0
+00008006  303C 0007                  9          move    #len-1,D0
+0000800A  343C 00FE                 10          move    #$00FE,D2   *definizione di un minimo corrente
+0000800E  363C FFFF                 11          move    #$FFFF,D3   *definizione di un massimo corrente
+00008012                            12          
+00008012  3218                      13  loop    move    (A0)+,D1
+00008014  0801 0000                 14          btst    #0,D1       *calcolo dell'elemento dispari
+00008018  6600 000E                 15          bne     disp
+0000801C  B243                      16          cmp     D3,D1
+0000801E  6E00 0014                 17          bgt     max
+00008022  4EF9 0000803E             18          jmp     ciclo
+00008028                            19          
+00008028  B242                      20  disp    cmp     D2,D1
+0000802A  6D00 0010                 21          blt     min
+0000802E  4EF9 0000803E             22          jmp     ciclo
+00008034                            23          
+00008034  3601                      24  max     move    D1,D3
+00008036  4EF9 0000803E             25          jmp     ciclo
+0000803C                            26          
+0000803C  3401                      27  min     move    D1,D2       *aggiornamento del minimo
+0000803E                            28  
+0000803E  51C8 FFD2                 29  ciclo   dbra    D0,loop
+00008042                            30          
+00008042  33C2 00008810             31          move    D2,minimo        
+00008048  33C3 00008812             32          move    D3,massimo
+0000804E                            33          
+0000804E  FFFF FFFF                 34          SIMHALT
+00008052                            35          
+00008800                            36          org     $8800
+00008800= 0003 0005 0002 0...       37  array   dc.w    3,5,2,17,54,41,8,99
+00008810                            38  minimo  ds.w    1
+00008812                            39  massimo ds.w    1
+00008814  =00000008                 40  len     equ     8
+00008814                            41  
+00008814                            42          END     START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               8800
+CICLO               803E
+DISP                8028
+LEN                 8
+LOOP                8012
+MASSIMO             8812
+MAX                 8034
+MIN                 803C
+MINIMO              8810
+START               8000

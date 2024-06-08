@@ -1,0 +1,12 @@
+.model decoder
+.inputs a b
+.outputs c d e f
+.names a b c
+00 1
+.names a b d
+01 1
+.names a b e
+10 1
+.names a b f
+11 1
+.end

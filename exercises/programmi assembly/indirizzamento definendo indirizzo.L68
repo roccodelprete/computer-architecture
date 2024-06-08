@@ -1,0 +1,50 @@
+00008000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 02/12/2021 08:56:59
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Indirizzamento indiretto definedo l'indirizzo
+00000000                             3  * Written by :
+00000000                             4  * Date       : 01/12/2021
+00000000                             5  * Description: for j=0 to 50
+00000000                             6                   *if j<=20
+00000000                             7                      *locazione di memoria($8200+j)=D3+1
+00000000                             8                   *else
+00000000                             9                      *locazione di memoria($8100+j)=D3-2
+00000000                            10  *-----------------------------------------------------------
+00008000                            11          ORG     $8000
+00008000  163C 0004                 12  START:  move.b  #4,D3
+00008004  103C 0031                 13          move.b  #j-1,D0
+00008008  207C 00008100             14          move.l  #$8100,A0
+0000800E  227C 00008200             15          move.l  #$8200,A1
+00008014                            16          
+00008014  0C00 0014                 17  loop    cmpi.b  #20,D0
+00008018  6E00 0010                 18          bgt     else  
+0000801C  1183 0000                 19          move.b  D3,(A0,D0)
+00008020  5230 0000                 20          add.b   #1,(A0,D0)
+00008024  4EF9 00008032             21          jmp     ciclo
+0000802A                            22          
+0000802A  1383 0000                 23  else    move.b  D3,(A1,D0)
+0000802E  5531 0000                 24          sub.b   #2,(A1,D0)
+00008032                            25          
+00008032  51C8 FFE0                 26  ciclo   dbra    D0,loop
+00008036                            27  
+00008036  FFFF FFFF                 28          SIMHALT
+0000803A                            29          
+00008800                            30          org   $8800
+00008800  =00000032                 31  j       equ     50
+00008800                            32  
+00008800                            33          END     START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CICLO               8032
+ELSE                802A
+J                   32
+LOOP                8014
+START               8000

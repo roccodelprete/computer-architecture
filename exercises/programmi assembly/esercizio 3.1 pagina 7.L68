@@ -1,0 +1,53 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 27/01/2022 11:07:58
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : esercizio 3.1 pagina 7
+00000000                             3  * Written by : Rocco
+00000000                             4  * Date       : 27/01/2022
+00000000                             5  * Description: IF D0 != 150 then (locazione di memoria $8800)=D5 + (contenuto della locazione $8504)
+00000000                             6                             *else (locazione di memoria $8600)=D6 + (contenuto della locazione $8202) 
+00000000                             7  *-----------------------------------------------------------
+00001000                             8      ORG    $1000
+00001000  48E7 86E0                  9  START:  movem.l A0/A1/A2/A2/D0/D5/D6,-(SP)
+00001004  41F9 00008800             10          lea     $8800,A0
+0000100A  43F9 00008600             11          lea     $8600,A1
+00001010  45F9 00008504             12          lea     $8504,A2
+00001016  47F9 00008202             13          lea     $8202,A3
+0000101C  303C 0096                 14          move    #150,D0
+00001020  3A3C 0007                 15          move    #7,D5
+00001024  3C3C 0003                 16          move    #3,D6
+00001028  34BC 0004                 17          move    #4,(A2)
+0000102C  36BC 0002                 18          move    #2,(A3)
+00001030  4EB9 0000103E             19          jsr     subr
+00001036  4CDF 0761                 20          movem.l (SP)+,A0/A1/A2/A2/D0/D5/D6
+0000103A                            21  
+0000103A  FFFF FFFF                 22      SIMHALT
+0000103E                            23      
+0000103E  B07C 0096                 24  subr    cmp     #150,D0
+00001042  6700 000C                 25          beq     else
+00001046                            26          
+00001046  DA52                      27  then    add     (A2),D5
+00001048  3085                      28          move    D5,(A0)
+0000104A  4EF9 00001054             29          jmp     fine
+00001050                            30          
+00001050  DC53                      31  else    add     (A3),D6
+00001052  3286                      32          move    D6,(A1)
+00001054                            33          
+00001054  4E75                      34  fine    rts
+00001056                            35  
+00001056                            36      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ELSE                1050
+FINE                1054
+START               1000
+SUBR                103E
+THEN                1046

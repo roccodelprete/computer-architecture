@@ -1,0 +1,49 @@
+00008500 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 16/12/2021 09:35:55
+
+00000000                             1  *-------------------------------------------------------------------------------------------------------------------
+00000000                             2  * Title      : Somma del contenuto in due indirizzi con salto - sottoprogramma
+00000000                             3  * Written by :
+00000000                             4  * Date       : 15/12/2021
+00000000                             5  * Description: Sommare il contenuto di due indirizzi e successivamente saltare in una nuova locazione
+00000000                             6  *-------------------------------------------------------------------------------------------------------------------
+0000810A                             7         org      $810A
+0000810A= 0A 0B                      8  array  dc.b     $0A,$0B
+0000810C                             9          
+00008500                            10         org      $8500
+00008500  48E7 C000                 11  start  movem.l  D0/D1,-(SP)
+00008504  41F9 0000810A             12         lea      $810A, A0
+0000850A  43F9 0000810B             13         lea      $810B, A1
+00008510  4EB9 00008600             14         jsr      test
+00008516  4CDF 0303                 15         movem.l  (SP)+,A0/A1/D0/D1
+0000851A                            16         
+00008600                            17         org      $8600
+00008600  1210                      18  test   move.b   (A0),D1
+00008602  1211                      19         move.b   (A1),D1
+00008604  D200                      20         add.b    D0,D1
+00008606  0801 0000                 21         btst     #0,D1
+0000860A  6600 0018                 22         bne      jump
+0000860E  0C01 000F                 23         cmpi.b   #15,D1
+00008612  6D00 0010                 24         blt      jump
+00008616  0C41 0019                 25         cmpi     #25,D1
+0000861A  6E00 0008                 26         bgt      jump
+0000861E  4EF9 00008600             27         jmp      $8600
+00008624                            28         
+00008624  4E75                      29  jump   rts
+00008626                            30         
+00008626  FFFF FFFF                 31         simhalt
+0000862A                            32        
+0000862A                            33         end      start
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               810A
+JUMP                8624
+START               8500
+TEST                8600

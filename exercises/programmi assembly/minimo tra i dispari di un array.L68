@@ -1,0 +1,54 @@
+00008000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 01/12/2021 14:59:49
+
+00000000                             1  *------------------------------------------------------------------------------------------------
+00000000                             2  * Title      :  Minimo tra dispari di un array
+00000000                             3  * Written by :
+00000000                             4  * Date       :  01/12/2021
+00000000                             5  * Description:  Calcolo degli elementi dispari di un array e successivamente del minimo tra loro
+00000000                             6  *------------------------------------------------------------------------------------------------
+00008000                             7          ORG     $8000
+00008000  41F9 00008800              8  START:  lea     array,A0
+00008006  303C 0007                  9          move    #len-1,D0
+0000800A  343C 00FE                 10          move    #$00FE,D2
+0000800E                            11          
+0000800E  3218                      12  loop    move    (A0)+,D1
+00008010  0801 0000                 13          btst    #0,D1
+00008014  6600 0008                 14          bne     disp
+00008018  4EF9 0000802C             15          jmp     ciclo
+0000801E                            16          
+0000801E  B242                      17  disp    cmp     D2,D1
+00008020  6D00 0008                 18          blt     min
+00008024  4EF9 0000802C             19          jmp     ciclo
+0000802A                            20          
+0000802A  3401                      21  min     move    D1,D2
+0000802C                            22  
+0000802C  51C8 FFE0                 23  ciclo   dbra    D0,loop
+00008030                            24          
+00008030  33C1 00008810             25          move    D1,minimo        
+00008036                            26  
+00008036  FFFF FFFF                 27          SIMHALT
+0000803A                            28          
+00008800                            29          org     $8800
+00008800= 0003 0005 0002 0...       30  array   dc.w    3,5,2,17,54,41,8,99
+00008810                            31  minimo  ds.w    1
+00008812  =00000008                 32  len     equ     8
+00008812                            33  
+00008812                            34          END     START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               8800
+CICLO               802C
+DISP                801E
+LEN                 8
+LOOP                800E
+MIN                 802A
+MINIMO              8810
+START               8000

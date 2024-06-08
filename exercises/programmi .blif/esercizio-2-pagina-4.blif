@@ -1,0 +1,17 @@
+.model esercizio4
+.inputs X Y Z T
+.outputs F
+.names X Y Z T F
+0000 1
+0001 1
+0011 1
+0111 1
+1010 1
+1101 1
+1111 1
+.exdc
+.names X Y Z T F
+1001 1
+1011 1
+.end
+

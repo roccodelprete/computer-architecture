@@ -1,0 +1,48 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 27/01/2022 11:16:55
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : esercizio 3.2 pagina 8
+00000000                             3  * Written by : Rocco
+00000000                             4  * Date       : 27/01/2022
+00000000                             5  * Description: FOR i=4 to contenuto della memoria $8200 then D2=D2 + D1 
+00000000                             6  *-----------------------------------------------------------
+00008800                             7      ORG    $8800
+00008800= 0004                       8  I   DC     4
+00008802                             9      
+00001000                            10      ORG    $1000
+00001000  48E7 E080                 11  START:  movem.l A0/D0/D1/D2,-(SP)
+00001004  41F9 00008200             12          lea     $8200,A0
+0000100A  30BC 000A                 13          move    #10,(A0)
+0000100E  3039 00008800             14          move    I,D0
+00001014  323C 0005                 15          move    #5,D1
+00001018  343C 0006                 16          move    #6,D2
+0000101C  4EB9 0000102A             17          jsr     subr
+00001022  4CDF 0107                 18          movem.l (SP)+,A0/D0/D1/D2
+00001026                            19  
+00001026  FFFF FFFF                 20      SIMHALT
+0000102A                            21      
+0000102A  B050                      22  subr    cmp     (A0),D0
+0000102C  6E00 000A                 23          bgt     fine
+00001030                            24          
+00001030  D441                      25  then    add     D1,D2
+00001032  5240                      26          add     #1,D0
+00001034  4EF8 102A                 27          jmp     subr
+00001038                            28          
+00001038  4E75                      29  fine    rts
+0000103A                            30          
+0000103A                            31      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+FINE                1038
+I                   8800
+START               1000
+SUBR                102A
+THEN                1030

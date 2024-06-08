@@ -1,0 +1,60 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 02/12/2021 09:39:50
+
+00000000                             1  *-------------------------------------------------------------------------------------------------------------------
+00000000                             2  * Title      : Contare byte dispari
+00000000                             3  * Written by :
+00000000                             4  * Date       : 02/12/2021
+00000000                             5  * Description: Contare quanti byte dispari >20 e <55 sono memorizzati nelle locazioni di memoria $8100 a $810F
+00000000                             6  *-------------------------------------------------------------------------------------------------------------------
+00001000                             7          org     $1000
+00001000  41F9 00008100              8  start   lea     array,A0
+00001006  303C 000F                  9          move    #len-1,D0
+0000100A  4242                      10          clr     D2          *contatore
+0000100C                            11          
+0000100C  1218                      12  loop    move.b  (A0)+,D1
+0000100E  0801 0000                 13          btst    #0,D1
+00001012  6700 001C                 14          beq     ciclo
+00001016                            15          
+00001016  0C41 0014                 16  pari    cmpi    #20,D1
+0000101A  6F00 0014                 17          ble     ciclo
+0000101E                            18          
+0000101E  0C41 0014                 19  disp    cmpi    #20,D1
+00001022  6F00 000C                 20          ble     ciclo
+00001026                            21  
+00001026  0C41 0037                 22  magg20  cmpi    #55,D1
+0000102A  6C00 0004                 23          bge     ciclo
+0000102E                            24  
+0000102E  5202                      25  min55   add.b   #1,D2
+00001030                            26  
+00001030  51C8 FFDA                 27  ciclo   dbra    D0,loop
+00001034                            28  
+00001034  33C2 00008112             29          move    D2,count    *aggiornamento contatore  
+0000103A                            30  
+0000103A  FFFF FFFF                 31          simhalt
+0000103E                            32  
+00008100                            33          org     $8100
+00008100= 0F 10 11 12 13 14 ...     34  array   dc.b    $0F,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D,$1E,$1F
+00008111  =00000010                 35  len     equ     $10
+00008112                            36  count   ds      1
+00008114                            37  
+00008114                            38          end     start
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               8100
+CICLO               1030
+COUNT               8112
+DISP                101E
+LEN                 10
+LOOP                100C
+MAGG20              1026
+MIN55               102E
+PARI                1016
+START               1000

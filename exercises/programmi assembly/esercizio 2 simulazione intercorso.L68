@@ -1,0 +1,64 @@
+00008400 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 16/12/2021 10:14:17
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Esercizio 2 simulazione intercorso
+00000000                             3  * Written by :
+00000000                             4  * Date       : 16/12/2021
+00000000                             5  * Description: Esercizio 2 simulazione intercorso
+00000000                             6  *-----------------------------------------------------------
+00008400                             7          org     $8400
+00008400  41F9 00008120              8  start   lea     array,A0
+00008406  48E7 F8C0                  9          movem.l A0/A1/D0-D4,-(SP)
+0000840A  363C 0005                 10          move    #len-1,D3
+0000840E  303C 0032                 11          move    #50,D0
+00008412  323C 0014                 12          move    #20,D1
+00008416  3439 00008126             13          move    count,D2
+0000841C  4EB9 00008430             14          jsr     sbr
+00008422  33C2 00008126             15          move    D2,count
+00008428  4CDF 031F                 16          movem.l (SP)+,A0/A1/D0-D4
+0000842C                            17          
+0000842C  FFFF FFFF                 18          simhalt
+00008430                            19          
+00008430  4242                      20  sbr     clr     D2
+00008432  1818                      21  loop    move.b  (A0)+,D4
+00008434  0804 0000                 22          btst    #0,D4
+00008438  6600 0010                 23          bne     ciclo
+0000843C                            24          
+0000843C  B840                      25  pari    cmp     D0,D4
+0000843E  6F00 000A                 26          ble     ciclo
+00008442                            27          
+00008442  B841                      28          cmp     D1,D4
+00008444  6C00 0004                 29          bge     ciclo
+00008448                            30  
+00008448  5202                      31  true    add.b   #1,D2
+0000844A                            32  
+0000844A  51CB FFE6                 33  ciclo   dbra    D3,loop
+0000844E                            34          
+0000844E  4E75                      35  ret     rts
+00008450                            36  
+00008120                            37          org     $8120
+00008120= 10 17 2A 39 20 2D         38  array   dc.b    16,23,42,57,32,45
+00008126  =00000006                 39  len     equ     6
+00008126                            40  count   ds      1
+00008128                            41  
+00008128                            42          end     start
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               8120
+CICLO               844A
+COUNT               8126
+LEN                 6
+LOOP                8432
+PARI                843C
+RET                 844E
+SBR                 8430
+START               8400
+TRUE                8448

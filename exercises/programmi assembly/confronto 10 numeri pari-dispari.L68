@@ -1,0 +1,58 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 24/11/2021 14:54:29
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG    $1000
+00001000  41F9 00008800              8  START:  lea    arr,A0
+00001006  43F9 00008814              9          lea    arrPari,A1
+0000100C  45F9 00008828             10          lea    arrDispari,A2
+00001012  363C 0009                 11          move   #len-1,D3
+00001016                            12  
+00001016  3218                      13  loop    move   (A0)+,D1
+00001018  0801 0000                 14          btst   #0,D1
+0000101C  6600 0010                 15          bne    disp
+00001020                            16          
+00001020  5279 0000883C             17  pari    add    #1,lenPari
+00001026  32C1                      18          move   D1,(A1)+
+00001028  4EF9 00001036             19          jmp    test
+0000102E                            20          
+0000102E  5279 0000883E             21  disp    add    #1,lenDispari
+00001034  34C1                      22          move   D1,(A2)+
+00001036                            23  
+00001036  51CB FFDE                 24  test    dbra   D3,loop
+0000103A                            25          
+0000103A  FFFF FFFF                 26          simhalt
+0000103E                            27          
+00008800                            28          org $8800
+00008800= 0001 0002 0003 0...       29  arr dc.w    1,2,3,4,5,6,7,8,9,10
+00008814                            30  arrPari    ds.w    10
+00008828                            31  arrDispari ds.w    10
+0000883C  =0000000A                 32  len     equ     10
+0000883C                            33  lenPari ds.w    1
+0000883E                            34  lenDispari  ds.w    1
+00008840                            35      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARR                 8800
+ARRDISPARI          8828
+ARRPARI             8814
+DISP                102E
+LEN                 A
+LENDISPARI          883E
+LENPARI             883C
+LOOP                1016
+PARI                1020
+START               1000
+TEST                1036

@@ -1,0 +1,52 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/01/2022 17:28:42
+
+00000000                             1  *---------------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:  FOR i=1 to contenuto della memoria $8400 step 3
+00000000                             6                 *D2=D2+contenuto memoria $8204
+00000000                             7  *---------------------------------------------------------------
+00008800                             8      ORG    $8800
+00008800= 0001                       9  I   DC     1
+00008802                            10  
+00001000                            11      ORG    $1000
+00001000  48E7 F0C0                 12  START:  movem.l A0/A1/D0-D3,-(SP)
+00001004  41F9 00008400             13          lea     $8400,A0
+0000100A  43F9 00008204             14          lea     $8204,A1
+00001010  10BC 0007                 15          move.b  #7,(A0)
+00001014  12BC 0004                 16          move.b  #4,(A1)
+00001018  3039 00008800             17          move    I,D0
+0000101E  343C 0005                 18          move    #5,D2
+00001022  4EB9 00001030             19          jsr     subr
+00001028  4CDF 030F                 20          movem.l (SP)+,A0/A1/D0-D3    
+0000102C                            21  
+0000102C  FFFF FFFF                 22      SIMHALT 
+00001030                            23      
+00001030  1610                      24  subr    move.b  (A0),D3
+00001032  B043                      25          cmp     D3,D0
+00001034  6E00 000C                 26          bgt     fine
+00001038                            27          
+00001038  1211                      28          move.b  (A1),D1
+0000103A  D441                      29          add     D1,D2
+0000103C                            30          
+0000103C  5240                      31          add     #1,D0
+0000103E  4EF8 1030                 32          jmp     subr
+00001042                            33          
+00001042  4E75                      34  fine    rts
+00001044                            35      
+00001044                            36      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+FINE                1042
+I                   8800
+START               1000
+SUBR                1030

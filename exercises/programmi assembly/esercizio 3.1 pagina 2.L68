@@ -1,0 +1,59 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 31/01/2022 12:14:24
+
+00000000                             1  *-----------------------------------------------------------------------------------------------------------
+00000000                             2  * Title      : esercizio 3.1 pagina 2
+00000000                             3  * Written by : Rocco
+00000000                             4  * Date       : 31/01/2022
+00000000                             5  * Description: IF indice >=20 then (locazione di memoria ($8200 + contenuto della locazione $8210))=3 * D2
+00000000                             6                *else (locazione di memoria ($8400 + contenuto della locazione $8220))= 2 * D1
+00000000                             7  *-----------------------------------------------------------------------------------------------------------
+00008800                             8      ORG    $8800
+00008800= 0014                       9  I   DC     20
+00008802                            10  
+00001000                            11      ORG    $1000
+00001000  48E7 E0F0                 12  START:  movem.l A0-A3/D0-D2,-(SP)
+00001004  41F9 00008200             13          lea     $8200,A0
+0000100A  43F9 00008400             14          lea     $8400,A1
+00001010  45F9 00008210             15          lea     $8210,A2
+00001016  47F9 00008220             16          lea     $8220,A3
+0000101C  3039 00008800             17          move    I,D0
+00001022  323C 0005                 18          move    #5,D1
+00001026  343C 0008                 19          move    #8,D2
+0000102A  34BC 0005                 20          move    #5,(A2)
+0000102E  36BC 0007                 21          move    #7,(A3)
+00001032  4EB9 00001040             22          jsr     subr
+00001038  4CDF 0F07                 23          movem.l (SP)+,A0-A3/D0-D2
+0000103C                            24          
+0000103C  FFFF FFFF                 25      SIMHALT
+00001040                            26      
+00001040  0C79 0014 00008800        27  subr    cmp     #20,I
+00001048  6C00 0010                 28          bge     then
+0000104C                            29          
+0000104C  D2D3                      30  else    add     (A3),A1
+0000104E  C2FC 0002                 31          mulu    #2,D1
+00001052  1281                      32          move.b  D1,(A1)
+00001054  4EF9 00001062             33          jmp     fine
+0000105A                            34          
+0000105A  D0D2                      35  then    add     (A2),A0
+0000105C  C4FC 0003                 36          mulu    #3,D2
+00001060  1082                      37          move.b  D2,(A0)
+00001062                            38          
+00001062  4E75                      39  fine    rts
+00001064                            40  
+00001064                            41      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ELSE                104C
+FINE                1062
+I                   8800
+START               1000
+SUBR                1040
+THEN                105A

@@ -1,0 +1,42 @@
+00008000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 16/12/2021 09:51:51
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Esercizio 1 simulazione intercorso
+00000000                             3  * Written by :
+00000000                             4  * Date       : 16/12/2021
+00000000                             5  * Description: Esercizio 1 simulazione intercorso
+00000000                             6  *-----------------------------------------------------------
+00000000                             7       
+00008000                             8         org      $8000
+00008000  48E7 A0C0                  9  start  movem.l  A0/A1/D0/D2,-(SP)
+00008004  41F9 00008400             10         lea      $8400, A0
+0000800A  43F9 00008200             11         lea      $8200, A1
+00008010  303C 0005                 12         move     #5,D0
+00008014  323C 0003                 13         move     #3,D1
+00008018  363C 0004                 14         move     #4,D3
+0000801C  4EB9 00008026             15         jsr      sbr
+00008022  4CDF 0305                 16         movem.l  (SP)+,A0/A1/D0/D2
+00008026                            17  
+00008026  D251                      18  sbr    add      (A1),D1
+00008028                            19  
+00008028  51CB FFFC                 20  test   dbra     D3,sbr
+0000802C                            21         
+0000802C  4E75                      22  ret    rts
+0000802E                            23         
+0000802E  FFFF FFFF                 24         simhalt
+00008032                            25        
+00008032                            26         end      start
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+RET                 802C
+SBR                 8026
+START               8000
+TEST                8028

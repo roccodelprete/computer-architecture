@@ -1,0 +1,49 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/11/2021 10:23:07
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Somma di numeri in array moltiplicati tra loro
+00000000                             3  * Written by :
+00000000                             4  * Date       : 25/11/2021
+00000000                             5  * Description: sum=0;
+00000000                             6                *for(j=5 to 19)
+00000000                             7                  *sum=sum+x[j]*y[j]
+00000000                             8                *end for
+00000000                             9  *-----------------------------------------------------------
+00001000                            10          ORG    $1000
+00001000  4242                      11  START:  clr    D2   *rgistro con somma
+00001002  4244                      12          clr    D4   *registro indice
+00001004  41F9 00008800             13          lea    x,A0
+0000100A  43F9 00008828             14          lea    y,A1     
+00001010  363C 000E                 15          move   #len-1,D3
+00001014                            16   
+00001014  3230 400A                 17  loop    move   10(A0,D4),D1 *D1=x[j]
+00001018  C2F1 400A                 18          mulu   10(A1,D4),D1 *x[j]*y[j]
+0000101C  D441                      19          add    D1,D2        *sum=sum+x[j]*y[j]
+0000101E  5444                      20          add    #2,D4        *j++
+00001020                            21          
+00001020  51CB FFF2                 22          dbra   D3,loop
+00001024  33C2 00008850             23          move   D2,sum
+0000102A  FFFF FFFF                 24          simhalt
+0000102E                            25          
+00008800                            26          org    $8800
+00008800= 0001 0002 0003 0...       27  x       dc     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+00008828= 0001 0002 0003 0...       28  y       dc     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+00008850  =0000000F                 29  len     equ    15
+00008850                            30  sum     ds     2
+00008854                            31          end    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+LEN                 F
+LOOP                1014
+START               1000
+SUM                 8850
+X                   8800
+Y                   8828

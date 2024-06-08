@@ -1,0 +1,54 @@
+00008800 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/01/2022 16:54:03
+
+00000000                             1  *-------------------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:   IF indice ==12
+00000000                             6                  *then (locazione di memoria ($8200 + indice))=D3- 1
+00000000                             7                  *else (locazione di memoria ($8100 + indice))=D3*2
+00000000                             8  *-------------------------------------------------------------------
+00001000                             9      ORG    $1000
+00001000= 0004                      10  I   DC      4
+00001002                            11  
+00008800                            12      ORG    $8800
+00008800  48E7 F0C0                 13  START:  movem.l A0/A1/D0-D3,-(SP)
+00008804  41F9 00008200             14          lea     $8200,A0
+0000880A  43F9 00008100             15          lea     $8100,A1
+00008810  3038 1000                 16          move    I,D0
+00008814  363C 0003                 17          move    #3,D3
+00008818  4EB9 00008826             18          jsr     subr
+0000881E  4CDF 030F                 19          movem.l (SP)+,A0/A1/D0-D3
+00008822                            20          
+00008822  FFFF FFFF                 21      SIMHALT
+00008826                            22      
+00008826  B07C 000C                 23  subr    cmp     #12,D0
+0000882A  6700 000A                 24          BEQ     then
+0000882E                            25          
+0000882E  D2C0                      26  else    add     D0,A1
+00008830  C6FC 0002                 27          mulu    #2,D3
+00008834  1283                      28          move.b  D3,(A1)
+00008836                            29          
+00008836  D0C0                      30  then    add     D0,A0
+00008838  5343                      31          sub     #1,D3
+0000883A  1083                      32          move.b  D3,(A0)
+0000883C                            33          
+0000883C  4E75                      34  ret     rts
+0000883E                            35          
+0000883E                            36      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ELSE                882E
+I                   1000
+RET                 883C
+START               8800
+SUBR                8826
+THEN                8836

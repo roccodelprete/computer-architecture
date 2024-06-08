@@ -1,0 +1,37 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/11/2021 09:06:52
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Indirizzamento indiretto con post-incremento
+00000000                             3  * Written by :
+00000000                             4  * Date       : 25/11/2021
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG    $1000
+00001000  207C 00008800              8  START:  movea.l #B,A0
+00001006  3018                       9          move    (A0)+,D0
+00001008  D058                      10          add     (A0)+,D0
+0000100A  D058                      11          add     (A0)+,D0
+0000100C  3080                      12          move    D0,(A0)    
+0000100E  FFFF FFFF                 13          simhalt
+00001012                            14          
+00008800                            15          org $8800
+00008800= 0004                      16  B       dc  4
+00008802= 0003                      17  C       dc  3
+00008804= 0009                      18  D       dc  9
+00008806                            19  A       ds  1
+00008808                            20          END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+A                   8806
+B                   8800
+C                   8802
+D                   8804
+START               1000

@@ -1,0 +1,9 @@
+.model half_adder
+.inputs x y 
+.outputs s cout
+.names x y s
+01 1
+10 1
+.names x y cout
+11 1
+.end

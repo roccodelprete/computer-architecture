@@ -1,0 +1,49 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 24/11/2021 14:53:45
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG    $1000
+00001000  41F9 00008800              8  START:  lea     arr,A0
+00001006  4242                       9          clr     D2
+00001008  363C 0003                 10          move    #len-2,D3
+0000100C                            11          
+0000100C  3010                      12  loop    move    (A0),D0
+0000100E  3228 0002                 13          move    2(A0),D1
+00001012  B240                      14          cmp     D0,D1
+00001014  6C00 000C                 15          bge     nsw
+00001018                            16  
+00001018  3140 0002                 17  swap    move    D0,2(A0)
+0000101C  3081                      18          move    D1,(A0)
+0000101E  343C 0001                 19          move    #1,D2
+00001022                            20  
+00001022  5448                      21  nsw     add     #2,A0
+00001024  51CB FFE6                 22          dbra    D3,loop
+00001028                            23          
+00001028  4A42                      24          tst     D2
+0000102A  66D4                      25          bne     start
+0000102C  FFFF FFFF                 26          simhalt             
+00001030                            27  
+00008800                            28      org     $8800
+00008800= 0011 000B 000A 0...       29  arr dc.w    17,11,10,18,5
+0000880A  =00000005                 30  len equ     5
+0000880A                            31      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARR                 8800
+LEN                 5
+LOOP                100C
+NSW                 1022
+START               1000
+SWAP                1018

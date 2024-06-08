@@ -1,0 +1,57 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 01/02/2022 11:25:13
+
+00000000                             1  *----------------------------------------------------------------------------------------
+00000000                             2  * Title      : esercizio 3.1 pagina 8
+00000000                             3  * Written by : Rocco
+00000000                             4  * Date       : 01/02/2022
+00000000                             5  * Description: IF bit 4 di X=0 then (locazione di memoria ($8700 + D1 * 3))=!D0 + 20
+00000000                             6                *else (locazione di memoria ($8200 + D1 *2))=D1 - 30
+00000000                             7  *----------------------------------------------------------------------------------------
+00008800                             8      ORG    $8800
+00008800= 0008                       9  X   DC     8 
+00008802                            10  
+00001000                            11      ORG    $1000
+00001000  48E7 F0C0                 12  START:  movem.l A0/A1/D0-D3,-(SP)
+00001004  41F9 00008700             13          lea     $8700,A0
+0000100A  43F9 00008200             14          lea     $8200,A1
+00001010  3439 00008800             15          move    X,D2
+00001016  303C 0005                 16          move    #5,D0
+0000101A  323C 0004                 17          move    #4,D1
+0000101E  4EB9 0000102C             18          jsr     subr
+00001024  4CDF 030F                 19          movem.l (SP)+,A0/A1/D0-D3
+00001028                            20  
+00001028  FFFF FFFF                 21      SIMHALT
+0000102C                            22      
+0000102C  0802 0004                 23  subr    btst    #4,D2
+00001030  6600 0016                 24          bne     else
+00001034                            25          
+00001034  C2FC 0003                 26  then    mulu    #3,D1
+00001038  4640                      27          not     D0
+0000103A  0640 0014                 28          add     #20,D0
+0000103E  3180 1000                 29          move    D0,(A0,D1)
+00001042  4EF9 00001056             30          jmp     fine
+00001048                            31          
+00001048  3601                      32  else    move    D1,D3
+0000104A  C2FC 0002                 33          mulu    #2,D1
+0000104E  0443 001E                 34          sub     #30,D3
+00001052  3383 3000                 35          move    D3,(A1,D3)
+00001056                            36          
+00001056  4E75                      37  fine    rts
+00001058                            38  
+00001058                            39      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ELSE                1048
+FINE                1056
+START               1000
+SUBR                102C
+THEN                1034
+X                   8800
