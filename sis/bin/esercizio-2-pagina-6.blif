@@ -1,0 +1,17 @@
+.model esercizio-2-pagina-6
+.inputs X Y Z T
+.outputs F
+.names X Y Z T F
+0001 1
+0010 1
+0011 1
+0100 1
+1000 1
+1100 1
+1110 1
+.exdc
+.names X Y Z T F
+0111 1
+1011 1
+1111 1
+.end

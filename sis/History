@@ -1,0 +1,123 @@
+History file - DOS port of SIS 1.2 pl 1
+=======================================
+
+11 June 1995
+-----------
+
+* Changed nova code to create tmp files in the current directory, rather
+  than /tmp (which would not normally exist under DOS)
+
+* nova (and jedi in exact.c) used system() calls to delete, copy and cat
+  files using rm, cp and cat. These programs do not exist under standard
+  DOS and system() calls like this are in any case inefficient. All calls
+  to rm now use remove(). Wrote two functions copyfile() and catfile() to
+  avoid the need to call system() for these operations.
+
+* espresso, nova, jedi, blif2vst and vst2blif are now compiled with -O2
+  optimisation.
+
+28 May 1995
+-----------
+
+* Corrected "bug" in util_tmpfile.  Temporary files were opened and then
+  unlinked (with the FILE* pointer being returned). This doesn't work
+  under DOS, where this just results in lost allocation units on the
+  disk. Corrected this by saving the filename in a global variable and
+  unlinking after the file is finished with. Checked all other calls to
+  unlink(). Corrected similar bug in astg/si_encod.c
+
+* Corrected another tmpfile bug in stamina/mimi/read_stg.c
+
+24 May 1995
+-----------
+
+* Restructured the sislib.zip and dsis12p1.zip files. Updated the Install
+  file to reflect this.
+
+22 May 1995
+-----------
+
+* The 'usage' and 'timeout' functions cannot be given useful meanings under
+  DOS. These fail (relatively) gracefully with an error message.
+
+* 'time' works as expected. The first time is the elapsed time since the
+  last time 'time' was called, and the second time is a wall clock time.
+  Both times are in seconds.
+
+* Removed a trailing newline from the command line. This caused problems
+  with command line editing and shell-escapes.
+
+* Shell escapes have been made exempt from my '/' to '\' translation. I
+  did this because '!dir /w' did not work because the '/w' option was
+  converted into a directory. (I can change this back if this behaviour
+  is not wanted). It means that directories specified in shell-escapes
+  should be DOS-style.
+
+* UNIX-style ~ expansion is supported as far as possible. It expands to
+  the value of the HOME environment variable (or / if it isn't set).
+
+* Hence, all the normal startup files are source'd (in this order)
+	SIS_LIB/_misrc,  SIS_LIB/_sisrc
+	~/_misrc, ~/_sisrc               (eg. set HOME=c:\home\paul)
+	./_misrc, ./_sisrc
+  This allows a system-wide setup, a per-user setup (if they set HOME) and
+  a setup for each working directory.
+
+21 May 1995
+-----------
+
+* All directory names are held internally with '/' as the directory
+  marker. These are converted to '\' only when the filenames are
+  presented to DOS. As far as the user is concerned, all filenames
+  should be UNIX style
+
+     eg:       d:/sis-1.2/sis
+
+* Directory lists are separated with '+' rather than ':'
+
+  ':' means something else to DOS (!), and ';' (which is normally
+  used in DOS) means something else to SIS. Hence I (arbitrarily)
+  chose '+'. This probably won't affect you, but you can do things
+  like
+
+      sis> set open_path .+d:/sis-1.2/sis/sis_lib+c:/home/paul
+
+* I have added an environment variable called 'SIS_LIB' to point at
+  your default library path. Also, an environment variable TMPDIR is
+  used to decide where to store temporary files. These should be
+  set, in UNIX style, from the DOS prompt (or autoexec.bat)
+
+     eg    set SIS_LIB=d:/sis-1.2/sis/sis_lib
+	   set TMPDIR=c:/tmp
+
+* sis now picks up a start-up file called _sisrc (I have seen a few
+  other packages that choose to replace the UNIX dot with a '_', so
+  it seemed like as good a choice as any). This file can contain any
+  sis commands you like, but normally is used for alias commands
+
+    eg	alias rl read_library
+
+* Help now works!  Typing 'help read_library' at the sis prompt will
+  print some documentation. This documentation is in the 'help'
+  subdirectory of sis_lib.
+
+  NB. Because the help files (*.fmt) are viewed using DOS 'type' and
+  'more', they must have DOS style linefeeds. zip -a will do this
+  transformation for you if you haven't done it already.
+
+16 May 1995
+-----------
+
+* New versions uploaded with go32 included, rather that stub.exe.
+  (required for stand-alone operation).
+
+1 May 1995
+----------
+
+* First port completed and uploaded to SBU.
+
+
+-----------------------------------------------------------------------
+Paul Stallard                                 email: paul@cs.bris.ac.uk
+
+Department of Computer Science, University of Bristol, Bristol. BS8 1TR

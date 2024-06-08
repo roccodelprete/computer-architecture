@@ -1,0 +1,40 @@
+
+   -----------------------------------------------------------------
+   |                        ** IMPORTANT **                        |
+   |---------------------------------------------------------------|
+   |                                                               |
+   |       The file 'dsis12p1.zip' contains a DOS port of the      |
+   |     Berkeley SIS software (version 1.2 patch 1) downloaded    |
+   |          via anonymous ftp from ic.eecs.berkeley.edu          |
+   |                                                               |
+   |     Please note that this is not a redistribution of SIS,     |
+   |      but a port of a point release to an alternative OS.      |
+   |                                                               |
+   |    The DOS executables are not distributed by UCB, and UCB    |
+   |    will not be responsible for any maintenance or enquires.   |
+   |                                                               |
+   |  The only supported ftp site for SIS is ic.eecs.berkeley.edu  |
+   |                                                               |
+   -----------------------------------------------------------------
+
+     **PLEASE** let us know (by email) if you are using this port.
+        This will help us keep track of numbers and allow us to
+            keep you informed of any new releases/bug fixes.
+
+SIS was written for UNIX systems and ported to DOS using DJ Delorie's
+port of gcc. If you would like further details, please contact Paul at
+paul@cs.bris.ac.uk.
+
+See the file 'Install' for details on how to install this package and of
+some of differences between this DOS port and other versions of SIS.
+
+If have any comments/bug reports, please email them to us at
+paul@cs.bris.ac.uk or prothed@vax.sbu.ac.uk.
+
+-----------------------------------------------------------------------
+Dave Protheroe                                 Paul Stallard
+Dept of Electrical Engineering                 Dept of Computer Science
+South Bank University                          University of Bristol
+London, UK                                     Bristol, UK
+
+prothed@vax.sbu.ac.uk                          paul@cs.bris.ac.uk

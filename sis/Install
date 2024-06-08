@@ -1,0 +1,86 @@
+Notes on the DOS port of SIS 1.2 pl 1
+=====================================
+
+Files
+-----
+
+  dsis12p1.zip
+    Readme            - READ THIS FILE FIRST
+    Install           - This file
+    History           - Some history of the SIS DOS port development
+    bin/sis.exe       \
+    bin/nova.exe       |
+    bin/sred.exe       |
+    bin/blif2vst.exe   |
+    bin/vst2blif.exe    > SIS version 1.2 patch level 1 binaries
+    bin/jedi.exe       |
+    bin/espresso.exe   |
+    bin/stamina.exe   /
+    bin/emu387        - A numeric coprocessor emulator. You must install
+		        this somewhere on your PATH if your machine does
+			not have a coprocessor (387 etc)
+
+  sislib.zip   -  SIS libraries
+    sis_lib/*         - Libraries, scripts and startup files
+    sis_lib/help/*    - Help files and the SIS manual
+
+Installation
+------------
+
+NOTE: As these archives contain UNIX and/or DOS style text files, you
+      must unzip with the -a option.
+
+* Unpack the binaries using:  unzip -a dsis12p1.zip
+
+  The two text files will be extracted into the current directory, the
+  binaries will be extracted in a sub-directory called bin.
+  You must place this bin directory on your PATH.
+
+* Unpack the sis libraries, using: unzip -a sislib.zip
+
+  The sislib.zip archive unpacks into a subdirectory called sis_lib.
+
+  NOTE: See "Differences" below for filename changes that have had to be
+  made.
+
+* set the following environment variables (from the DOS prompt, or in
+  autoexec.bat)
+
+	set SIS_LIB=c:/sis_lib      (or whatever)
+	set TMPDIR=c:/tmp           (or whatever)
+	set HOME=c:/home/paul       (to support '~' expansion)
+
+  NOTE: These directories should use the UNIX-style '/'. All directories
+  are held internally in this format and only converted to the '\' form
+  when they are presented to DOS.
+
+* Send us an email to let us know you are using this port. We will then
+  be able to let you know about any new releases/bug fixes.
+
+Differences between the DOS and UNIX versions
+---------------------------------------------
+
+* Some filenames of the help files had to be changed. The changes are
+    astg_to_stg.*   -> astg2stg.*  (avoid clash with astg_to_f.*)
+    astg_print_sg.* -> astg_sg.*   (avoid clash with astg_print_stat.*)
+    print_state.*   -> pr_state.*  (avoid clash with print_stats.*)
+
+* UNIX-style ~ expansion is provided by substituting the value of the
+  HOME environment variable. To get the desired effect, each user needs
+  to set this appropriately.
+
+* Startup files are called _misrc and _sisrc (rather than .misrc, .sisrc)
+  All the standard files are sourced on startup, in $SIS_LIB, $HOME, and
+  the current directory.
+
+Things that won't work
+----------------------
+
+* The sis commands 'timeout' and 'usage' cannot be usefully supported
+  under DOS, so these won't work.
+
+
+-----------------------------------------------------------------------
+Paul Stallard                                 email: paul@cs.bris.ac.uk
+
+Department of Computer Science, University of Bristol, Bristol. BS8 1TR

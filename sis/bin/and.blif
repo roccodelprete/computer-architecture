@@ -1,0 +1,6 @@
+.model and
+.inputs I1 I2
+.outputs U1 
+.names I1 I2 U1
+11 1
+.end 
